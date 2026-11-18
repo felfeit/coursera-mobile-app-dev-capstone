@@ -1,3 +1,4 @@
+import 'package:coursera_mobile_app_dev_capstone/features/auth/presentation/country_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -74,6 +75,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
   @override
   Widget build(BuildContext context) {
     final isLoading = context.watch<AuthProvider>().isLoading;
+    final countryProvider = context.watch<CountryProvider>();
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -145,7 +147,9 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                 const SizedBox(height: AppSizes.spacing8),
                 ProfileCountryDropdown(
                   value: _country,
-                  countries: AppStrings.countries,
+                  countries: countryProvider.countries,
+                  isLoading: countryProvider.isLoading,
+                  error: countryProvider.error,
                   onChanged: (value) => setState(() => _country = value),
                 ),
                 const SizedBox(height: AppSizes.spacing32),

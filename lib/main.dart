@@ -1,3 +1,4 @@
+import 'package:coursera_mobile_app_dev_capstone/features/auth/presentation/country_provider.dart';
 import 'package:coursera_mobile_app_dev_capstone/features/notifications/presentation/notifications_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -13,6 +14,9 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (_) => CountryProvider()..fetchCountries(),
+        ),
         ChangeNotifierProvider(create: (_) => AuthProvider()..init()),
         ChangeNotifierProvider(create: (_) => HabitProvider()..init()),
         ChangeNotifierProvider(create: (_) => NotificationProvider()..init()),

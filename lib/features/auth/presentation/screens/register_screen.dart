@@ -1,4 +1,5 @@
 import 'package:coursera_mobile_app_dev_capstone/features/auth/presentation/auth_provider.dart';
+import 'package:coursera_mobile_app_dev_capstone/features/auth/presentation/country_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _usernameController = TextEditingController();
-  String _country = 'Australia';
+  String _country = 'Indonesia';
   double _age = 25;
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
@@ -76,6 +77,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final countryProvider = context.watch<CountryProvider>();
+
     return Scaffold(
       backgroundColor: AppColors.primaryDark,
       body: SafeArea(
@@ -117,10 +120,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 CustomTextField(
                   controller: _nameController,
                   hintText: AppStrings.nameHint,
+                  prefixIcon: Icons.person,
                   validator: Validators.validateRequired,
                 ),
                 const SizedBox(height: AppSizes.spacing16),
                 CustomTextField(
+                  prefixIcon: Icons.email,
                   controller: _usernameController,
                   hintText: 'Username',
                   validator: Validators.validateUsername,
@@ -129,7 +134,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 CustomTextField(
                   controller: _passwordController,
                   hintText: 'Password',
-                  prefixIcon: Icons.lock_outline,
+                  prefixIcon: Icons.lock,
                   obscureText: _obscurePassword,
                   validator: Validators.validatePassword,
                   suffixIcon: IconButton(
@@ -164,7 +169,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const SizedBox(height: AppSizes.spacing16),
                 RegisterCountryDropdown(
                   value: _country,
-                  countries: AppStrings.countries,
+                  countries: countryProvider.countries,
+                  isLoading: countryProvider.isLoading,
+                  error: countryProvider.error,
                   onChanged: (value) => setState(() => _country = value),
                 ),
                 const SizedBox(height: AppSizes.spacing24),

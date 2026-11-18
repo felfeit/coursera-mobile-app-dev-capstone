@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomTextField(
                     controller: _usernameController,
                     hintText: AppStrings.usernameHint,
-                    prefixIcon: Icons.email_outlined,
+                    prefixIcon: Icons.email,
                     keyboardType: TextInputType.text,
                     validator: Validators.validateUsername,
                   ),
@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomTextField(
                     controller: _passwordController,
                     hintText: AppStrings.passwordHint,
-                    prefixIcon: Icons.lock_outline,
+                    prefixIcon: Icons.lock,
                     obscureText: _obscurePassword,
                     validator: Validators.validatePassword,
                     suffixIcon: IconButton(
